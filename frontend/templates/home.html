@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}Summary{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+{% endblock %}
+{% block heading %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <h3>Human Proteome Summary</h3>
+
+    {% if parsed %}
+        <p>RefSeq and ProtDB successfully loaded!</p>
+    {% else %}
+        <form method="get" action="./populate">
+            <button id="btn_populate" type="submit" class="btn btn-warning">Parse databases</button>
+        </form>
+    {% endif %}
+    
+    <div id="spinner">
+        <img src="{{ url_for('static',filename='img/spinner2.gif') }}" alt="spinner">
+    </div>
+    <div id="overlay"></div>
+
+    {% if results %}
+        <hr>
+	<p>Matches between all protein entries' metadata between databases RefSeq and UniProt:</p>
+        {{ results|safe }}
+    {% endif %}
+
+    <!--<table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">UniProt</th>
+                    <th scope="col">RefSeq</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Symbol</th>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th scope="row">UniProt ascension id</th>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th scope="row">RefSeq ascension id</th>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Amino acid sequence</th>
+                    <td>AH</td>
+                    <td>AHAH</td>
+                </tr>
+            </tbody>
+        </table>-->
+
+    <script>
+    $(document).ready(function() {
+        $("thead").addClass("table-dark");
+        $("#btn_populate").click(() => {
+            $("#spinner").show(1000);
+            $("#overlay").show();
+        });
+        {% if error %} toastr.error('{{ error }}'){% endif %}
+        {% if message %} toastr.info('{{ message }}'){% endif %}
+    });
+    </script>
+{% endblock %}

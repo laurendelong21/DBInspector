@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Comparison{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/comparison.css') }}">
+{% endblock %}
+{% block heading %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h3>Compare Protein between Databases</h3>
+    <p>Input a UniProt accession identifier, RefSeq accession identifier, or gene symbol here. Below the interface a
+        table will be displayed comparing database information from UniProt and RefSeq for the given protein.</p>
+
+    <form class="" action="./info" method="get">
+        <div class="form-floating mb-3">
+            <input type="text"  class="form-control" name="identifier" id="identifier" placeholder="ID0000" required>
+            <label for="identifier">DB-Identifier</label>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Compare</button>
+        </div>
+    </form>
+
+    {% if results %}
+        <hr>
+        <h4>Comparison of Database Information</h4>
+        <p>for protein: {{ query }}</p>
+        {{ results|safe }}
+    {% endif %}
+
+    <script>
+        $(document).ready(function () {
+            $("thead").addClass("table-dark")
+            $('thead tr th').first().css('width', '12%')
+            {% if error %} toastr.error('{{ error }}'){% endif %}
+            {% if message %} toastr.info('{{ message }}'){% endif %}
+        });
+    </script>
+
+{% endblock %}

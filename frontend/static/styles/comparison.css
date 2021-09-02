@@ -1,0 +1,19 @@
+table {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    table-layout: fixed;
+}
+
+td {
+    /*overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;*/
+    white-space: pre-wrap;
+    word-wrap: break-all;
+    overflow-wrap: anywhere;
+}
+
+th {
+    text-align: left;
+}

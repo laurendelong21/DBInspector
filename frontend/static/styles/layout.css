@@ -1,0 +1,20 @@
+.footer {
+    width: 100%;
+    background-color: #222;
+    color: lightgray;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+}
+
+.footer a{
+    color: lightgray;
+}
+
+.container {
+    max-width: 1000px;
+}
+
+h2 {color: #2283aa;}
